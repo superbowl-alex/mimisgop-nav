@@ -21,7 +21,18 @@ const catalog = [
       {
         title: "bottoms",
         url: "/src/components/bottoms.html",
-        links: "",
+        links: [
+          {
+            title: "shoes",
+            url: "/src/components/shoes.html",
+            links: "",
+          },
+          {
+            title: "shoes",
+            url: "/src/components/shoes.html",
+            links: "",
+          },
+        ],
       },
       {
         title: "outdoor",

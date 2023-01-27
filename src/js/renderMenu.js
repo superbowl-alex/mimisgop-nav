@@ -4,7 +4,9 @@ const secondaryMenu = document.querySelector(".secondary-menu");
 
 export const openSubMenu = (e) => {
   e.preventDefault();
-  console.log(e.target.dataset.inner);
+  const arr = JSON.parse(e.target.dataset.inner);
+  console.log(arr);
+  renderMainMenu(arr);
 };
 
 export const renderMainMenu = (arr) => {
