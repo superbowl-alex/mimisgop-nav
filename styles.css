@@ -1,0 +1,73 @@
+/* -------------------обнуление----------- */
+h1,
+h2,
+h3,
+h4,
+ul,
+body,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+/* -------------------обнуление----------- */
+.nav-wrap {
+  width: 360px;
+  position: relative;
+  border: 1px tomato solid;
+  padding-top: 27px;
+}
+
+.menu-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu {
+}
+
+.menu__item {
+  border-bottom: 1px gray solid;
+}
+
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .nav-wrap {
+    width: 768px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .nav-wrap {
+    width: 1440px;
+    padding-left: 95px;
+    padding-right: 95px;
+  }
+}
