@@ -1,4 +1,9 @@
 /* -------------------обнуление----------- */
+body {
+  box-sizing: border-box;
+  background-color: aquamarine;
+}
+
 h1,
 h2,
 h3,
@@ -35,7 +40,6 @@ button {
 .nav-wrap {
   width: 360px;
   position: relative;
-  border: 1px tomato solid;
   padding-top: 27px;
 }
 
@@ -46,6 +50,10 @@ button {
 }
 
 .menu {
+  border-radius: 0 15px 15px 0;
+  background-color: #ffffff;
+  width: 296px;
+  overflow: hidden;
 }
 
 .menu__item {
@@ -58,9 +66,33 @@ button {
   visibility: hidden;
 }
 
+.secondary-menu,
+.sub-menu {
+  position: absolute;
+  top: 27px;
+}
+
+.secondary-menu > .menu__item,
+.sub-menu > .menu__item {
+  border-bottom: none;
+}
+
+.sub-menu {
+  background-color: #dee4e9;
+}
+
 @media screen and (min-width: 768px) {
   .nav-wrap {
     width: 768px;
+  }
+
+  .secondary-menu {
+    border-radius: 0;
+  }
+
+  .sub-menu {
+    left: 296px;
+    width: 412px;
   }
 }
 

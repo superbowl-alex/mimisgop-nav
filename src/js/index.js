@@ -108,12 +108,14 @@ const openMenu = () => {
 const closeMenu = () => {
   openMenuBtn.classList.remove("is-hidden");
   closeMenuBtn.classList.add("is-hidden");
+  mainMenu.classList.remove("is-hidden");
+  secondaryMenu.classList.remove("is-hidden");
   mainMenu.innerHTML = "";
+  secondaryMenu.innerHTML = "";
+  subMenu.innerHTML = "";
 };
 
 const openSubMenu = () => {
-  console.log("In open submenu");
-  mainMenu.innerHTML = "";
   renderSecondaryMenu(catalog);
 };
 
