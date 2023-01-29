@@ -101,5 +101,43 @@ button {
     width: 1250px;
     padding-left: 95px;
     padding-right: 95px;
+    padding-top: 0;
+    background-color: #fdca3d;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  .main-menu {
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.1;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0;
+    background-color: #fdca3d;
+  }
+  .menu__item {
+    padding: 22.5px 15px;
+    border-bottom: 0;
+  }
+
+  .menu__item:first-child {
+    box-sizing: border-box;
+    background-color: #e22636;
+    width: 296px;
+  }
+
+  .secondary-menu {
+    top: 65px;
+    width: 296px;
+  }
+
+  .sub-menu {
+    top: 65px;
+    left: 391px;
+    width: 296px;
   }
 }

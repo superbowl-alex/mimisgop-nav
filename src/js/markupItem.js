@@ -1,9 +1,11 @@
 // function creating markup for one element
-export const markupItems = ({ title, url, links }) => {
+export const markupItems = ({ title, url, links }, id) => {
   const data = JSON.stringify(links);
   const goToInnerMenu =
     links.length > 0
-      ? `<button class="menu__item-link" type="button" data-inner=${data}>></button>`
+      ? `<button class="menu__item-link" type="button" data-inner=${data}
+      data-id=${id}
+      >></button>`
       : "";
   return `<li class="menu__item">
               <a

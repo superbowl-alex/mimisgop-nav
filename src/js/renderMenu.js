@@ -12,7 +12,7 @@ export const openSubMenu = (e) => {
 
 export function renderMainMenu(arr) {
   mainMenu.innerHTML = "";
-  const currentMarkup = arr.map((item) => markupItems(item)).join("");
+  const currentMarkup = arr.map((item, ind) => markupItems(item, ind)).join("");
   mainMenu.insertAdjacentHTML("beforeend", currentMarkup);
   const openSecondaryMenuButton = document.querySelectorAll(".menu__item-link");
   openSecondaryMenuButton.forEach((item) =>
@@ -29,7 +29,7 @@ export function renderSecondaryMenu(e) {
   }
   const buttonGoBackMarkup =
     "<button class='back-button' type='button'>Go back</button>";
-  const currentMarkup = arr.map((item) => markupItems(item)).join("");
+  const currentMarkup = arr.map((item, ind) => markupItems(item, ind)).join("");
   secondaryMenu.insertAdjacentHTML("beforeend", buttonGoBackMarkup);
   secondaryMenu.insertAdjacentHTML("beforeend", currentMarkup);
   const buttonGoBack = secondaryMenu.querySelector(".back-button");
@@ -56,7 +56,7 @@ export function renderSubMenu(e) {
 
   const buttonGoBackMarkup =
     "<button class='back-button' type='button'>Go back</button>";
-  const currentMarkup = arr.map((item) => markupItems(item)).join("");
+  const currentMarkup = arr.map((item, ind) => markupItems(item, ind)).join("");
   subMenu.insertAdjacentHTML("beforeend", buttonGoBackMarkup);
   subMenu.insertAdjacentHTML("beforeend", currentMarkup);
   const buttonGoBack = subMenu.querySelector(".back-button");

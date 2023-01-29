@@ -1,4 +1,4 @@
-import { renderMainMenu, renderSecondaryMenu } from "./renderMenu.js";
+import { renderMainMenu } from "./renderMenu.js";
 
 const menuBtn = document.querySelectorAll(".menu-btn");
 const openMenuBtn = document.querySelector(".menu-open");
@@ -99,6 +99,10 @@ const catalog = [
   },
 ];
 
+if (window.innerWidth > 1439) {
+  renderMainMenu(catalog);
+}
+
 const openMenu = () => {
   openMenuBtn.classList.add("is-hidden");
   closeMenuBtn.classList.remove("is-hidden");
@@ -113,10 +117,6 @@ const closeMenu = () => {
   mainMenu.innerHTML = "";
   secondaryMenu.innerHTML = "";
   subMenu.innerHTML = "";
-};
-
-const openSubMenu = () => {
-  renderSecondaryMenu(catalog);
 };
 
 openMenuBtn.addEventListener("click", openMenu);
