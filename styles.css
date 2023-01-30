@@ -68,6 +68,11 @@ button {
   visibility: hidden;
 }
 
+.active {
+  pointer-events: auto;
+  visibility: visible;
+}
+
 .secondary-menu,
 .sub-menu {
   position: absolute;

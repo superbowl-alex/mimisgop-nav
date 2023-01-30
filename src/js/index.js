@@ -23,7 +23,18 @@ const catalog = [
           {
             title: "shoes",
             url: "/src/components/shoes.html",
-            links: "",
+            links: [
+              {
+                title: "toys",
+                url: "/src/components/toys.html",
+                links: "",
+              },
+              {
+                title: "outdoor",
+                url: "/src/components/outdoor.html",
+                links: "",
+              },
+            ],
           },
           {
             title: "shoes",
@@ -106,16 +117,19 @@ const openMenu = () => {
   openMenuBtn.classList.add("is-hidden");
   closeMenuBtn.classList.remove("is-hidden");
   mainMenu.classList.remove("is-hidden");
+  mainMenu.classList.add("active");
 };
 
 const closeMenu = () => {
   openMenuBtn.classList.remove("is-hidden");
   closeMenuBtn.classList.add("is-hidden");
   mainMenu.classList.add("is-hidden");
+  mainMenu.classList.remove("active");
+
   const secondaryMenu = document.querySelectorAll(".secondary-menu");
   secondaryMenu.forEach((item) => {
-    item.style.visibility = "hidden";
-    item.style.pointer = "none";
+    item.classList.add("is-hidden");
+    item.classList.remove("active");
   });
 };
 
