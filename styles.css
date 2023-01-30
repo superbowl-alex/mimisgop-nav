@@ -50,6 +50,8 @@ button {
 }
 
 .menu {
+  position: absolute;
+  top: 50px;
   border-radius: 0 15px 15px 0;
   background-color: #ffffff;
   width: 296px;
@@ -61,7 +63,7 @@ button {
 }
 
 .is-hidden {
-  opacity: 0;
+  /* opacity: 0; */
   pointer-events: none;
   visibility: hidden;
 }
@@ -69,7 +71,7 @@ button {
 .secondary-menu,
 .sub-menu {
   position: absolute;
-  top: 27px;
+  top: 0;
 }
 
 .secondary-menu > .menu__item,

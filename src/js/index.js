@@ -1,10 +1,8 @@
-import { renderMainMenu } from "./renderMenu.js";
+import { render } from "./renderMenu.js";
 
-const menuBtn = document.querySelectorAll(".menu-btn");
 const openMenuBtn = document.querySelector(".menu-open");
 const closeMenuBtn = document.querySelector(".menu-close");
 const mainMenu = document.querySelector(".main-menu");
-const secondaryMenu = document.querySelector(".secondary-menu");
 const subMenu = document.querySelector(".sub-menu");
 const openSubMenuButton = document.querySelector(".menu__item-link");
 const goBackButton = document.querySelector(".back-button");
@@ -99,24 +97,26 @@ const catalog = [
   },
 ];
 
-if (window.innerWidth > 1439) {
-  renderMainMenu(catalog);
-}
+// if (window.innerWidth > 1439) {
+//   renderMainMenu(catalog);
+// }
+render(catalog);
 
 const openMenu = () => {
   openMenuBtn.classList.add("is-hidden");
   closeMenuBtn.classList.remove("is-hidden");
-  renderMainMenu(catalog);
+  mainMenu.classList.remove("is-hidden");
 };
 
 const closeMenu = () => {
   openMenuBtn.classList.remove("is-hidden");
   closeMenuBtn.classList.add("is-hidden");
-  mainMenu.classList.remove("is-hidden");
-  secondaryMenu.classList.remove("is-hidden");
-  mainMenu.innerHTML = "";
-  secondaryMenu.innerHTML = "";
-  subMenu.innerHTML = "";
+  mainMenu.classList.add("is-hidden");
+  const secondaryMenu = document.querySelectorAll(".secondary-menu");
+  secondaryMenu.forEach((item) => {
+    item.style.visibility = "hidden";
+    item.style.pointer = "none";
+  });
 };
 
 openMenuBtn.addEventListener("click", openMenu);
