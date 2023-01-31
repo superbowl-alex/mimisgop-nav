@@ -78,7 +78,7 @@ function goNext(firstMenu, prevMenu, currentmenu, el) {
 function goBack(firstMenu, prevMenu, currentmenu, el) {
   const goBackButton = el.querySelector(".back-button");
   if (window.innerWidth > 1439) {
-    goBackButton.style.backGround = "tomato";
+    goBackButton.style.display = "none";
   }
 
   goBackButton.dataset.depth = currentmenu.dataset.depth;
