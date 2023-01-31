@@ -55,15 +55,13 @@ button {
   border-radius: 0 15px 15px 0;
   background-color: #ffffff;
   width: 296px;
-  overflow: hidden;
 }
 
-.menu__item {
+.menu__item:not(:last-child) {
   border-bottom: 1px gray solid;
 }
 
 .is-hidden {
-  /* opacity: 0; */
   pointer-events: none;
   visibility: hidden;
 }
@@ -73,14 +71,22 @@ button {
   visibility: visible;
 }
 
-.secondary-menu,
-.sub-menu {
-  position: absolute;
-  top: 0;
+.menu-wrap {
 }
 
-.secondary-menu > .menu__item,
-.sub-menu > .menu__item {
+.main-menu {
+}
+
+.secondary-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  width: 296px;
+  border-radius: 0 15px 15px 0;
+}
+
+.secondary-menu > .menu__item {
   border-bottom: none;
 }
 
@@ -126,9 +132,17 @@ button {
     border-radius: 0;
     background-color: #fdca3d;
   }
+
+  .main-menu > .menu__item {
+    position: relative;
+  }
+
+  .menu__item:not(:last-child) {
+    border-bottom: 0;
+  }
+
   .menu__item {
     padding: 22.5px 15px;
-    border-bottom: 0;
   }
 
   .menu__item:first-child {
@@ -138,7 +152,7 @@ button {
   }
 
   .secondary-menu {
-    top: 65px;
+    top: 64px;
     width: 296px;
   }
 

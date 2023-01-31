@@ -3,9 +3,6 @@ import { render } from "./renderMenu.js";
 const openMenuBtn = document.querySelector(".menu-open");
 const closeMenuBtn = document.querySelector(".menu-close");
 const mainMenu = document.querySelector(".main-menu");
-const subMenu = document.querySelector(".sub-menu");
-const openSubMenuButton = document.querySelector(".menu__item-link");
-const goBackButton = document.querySelector(".back-button");
 const catalog = [
   {
     title: "catalog",
@@ -58,7 +55,67 @@ const catalog = [
         url: "/src/components/tops.html",
         links: "",
       },
+      {
+        title: "outdoor",
+        url: "/src/components/outdoor.html",
+        links: "",
+      },
+      {
+        title: "toys",
+        url: "/src/components/toys.html",
+        links: "",
+      },
+      {
+        title: "tops",
+        url: "/src/components/tops.html",
+        links: "",
+      },
+      {
+        title: "outdoor",
+        url: "/src/components/outdoor.html",
+        links: "",
+      },
+      {
+        title: "toys",
+        url: "/src/components/toys.html",
+        links: "",
+      },
+      {
+        title: "tops",
+        url: "/src/components/tops.html",
+        links: "",
+      },
+      {
+        title: "outdoor",
+        url: "/src/components/outdoor.html",
+        links: "",
+      },
+      {
+        title: "toys",
+        url: "/src/components/toys.html",
+        links: "",
+      },
+      {
+        title: "tops",
+        url: "/src/components/tops.html",
+        links: "",
+      },
     ],
+  },
+  {
+    title: "outdoor",
+    url: "/src/components/outdoor.html",
+    links: "",
+  },
+  {
+    title: "toys",
+    url: "/src/components/toys.html",
+    links: "",
+  },
+  {
+    title: "tops",
+    url: "/src/components/tops.html",
+    links: "",
   },
   {
     title: "0-3 years",
@@ -108,10 +165,11 @@ const catalog = [
   },
 ];
 
-// if (window.innerWidth > 1439) {
-//   renderMainMenu(catalog);
-// }
 render(catalog);
+if (window.innerWidth > 1439) {
+  mainMenu.classList.remove("is-hidden");
+  mainMenu.classList.add("active");
+}
 
 const openMenu = () => {
   openMenuBtn.classList.add("is-hidden");
@@ -125,7 +183,6 @@ const closeMenu = () => {
   closeMenuBtn.classList.add("is-hidden");
   mainMenu.classList.add("is-hidden");
   mainMenu.classList.remove("active");
-
   const secondaryMenu = document.querySelectorAll(".secondary-menu");
   secondaryMenu.forEach((item) => {
     item.classList.add("is-hidden");
