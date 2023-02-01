@@ -56,6 +56,8 @@ button {
   background-color: #ffffff;
   width: 296px;
 }
+.secondary-menu.active {
+}
 
 .menu__item:not(:last-child) {
   border-bottom: 1px gray solid;
@@ -90,22 +92,9 @@ button {
   border-bottom: none;
 }
 
-.sub-menu {
-  background-color: #dee4e9;
-}
-
 @media screen and (min-width: 768px) {
   .nav-wrap {
     width: 768px;
-  }
-
-  .secondary-menu {
-    border-radius: 0;
-  }
-
-  .sub-menu {
-    left: 296px;
-    width: 412px;
   }
 }
 
@@ -153,12 +142,6 @@ button {
 
   .secondary-menu {
     top: 64px;
-    width: 296px;
-  }
-
-  .sub-menu {
-    top: 65px;
-    left: 391px;
     width: 296px;
   }
 }

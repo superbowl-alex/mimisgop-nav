@@ -43,7 +43,18 @@ const catalog = [
       {
         title: "outdoor",
         url: "/src/components/outdoor.html",
-        links: "",
+        links: [
+          {
+            title: "toys",
+            url: "/src/components/toys.html",
+            links: "",
+          },
+          {
+            title: "outdoor",
+            url: "/src/components/outdoor.html",
+            links: "",
+          },
+        ],
       },
       {
         title: "toys",
@@ -73,7 +84,18 @@ const catalog = [
       {
         title: "outdoor",
         url: "/src/components/outdoor.html",
-        links: "",
+        links: [
+          {
+            title: "toys",
+            url: "/src/components/toys.html",
+            links: "",
+          },
+          {
+            title: "tops",
+            url: "/src/components/tops.html",
+            links: "",
+          },
+        ],
       },
       {
         title: "toys",

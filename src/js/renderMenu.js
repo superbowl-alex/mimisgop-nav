@@ -52,13 +52,30 @@ export function render(arr) {
 function goNext(firstMenu, prevMenu, currentmenu, el) {
   const goNextMenu = el.querySelector(".menu__item-link");
   const nestingDepth = currentmenu.dataset.depth - 1 || 0;
+
   goNextMenu.addEventListener("click", () => {
     if (window.innerWidth < 768) {
       prevMenu.classList.add("is-hidden");
       prevMenu.classList.remove("active");
     }
+    const currentSecondaryMenu = document.querySelectorAll(
+      `.secondary-menu[data-depth="${
+        nestingDepth + 1
+      }"].active, .secondary-menu[data-depth="${
+        nestingDepth + 2
+      }"].active, .secondary-menu[data-depth="${nestingDepth + 3}"].active`
+    );
+
+    if (currentSecondaryMenu.length > 0) {
+      currentSecondaryMenu.forEach((item) => {
+        item.classList.add("is-hidden");
+        item.classList.remove("active");
+      });
+    }
+
     currentmenu.classList.remove("is-hidden");
     currentmenu.classList.add("active");
+
     if (window.innerWidth > 767 && window.innerWidth < 1440) {
       if (firstMenu) {
         firstMenu.classList.add("is-hidden");
@@ -80,7 +97,6 @@ function goBack(firstMenu, prevMenu, currentmenu, el) {
   if (window.innerWidth > 1439) {
     goBackButton.style.display = "none";
   }
-
   goBackButton.dataset.depth = currentmenu.dataset.depth;
   goBackButton.addEventListener("click", (e) => {
     e.preventDefault();
