@@ -3,7 +3,8 @@ const mainMenu = document.querySelector(".main-menu");
 const mobileWidth = 360;
 const tabletWidth = 768;
 const desctopWidth = 1440;
-const secondaryMenuHeight = [];
+// const secondaryMenuHeight = [];
+const currentHeight = document.documentElement.clientHeight;
 
 export function render(arr) {
   const mainMenuMarkup = arr.map((item) => markupItems(item)).join("");
@@ -50,19 +51,26 @@ export function render(arr) {
         }
       });
     }
+    // mainMenu.style.height = `${currentHeight}px`;
+
+    // const menu = document.querySelectorAll(".main-menu, .secondary-menu");
+
+    // console.log(currentHeight);
+    // console.log(menu);
+    // menu.forEach((i) => {
+    //   i.style.height = `${currentHeight}px`;
+    //   // i.style.overflowY = "scroll";
+    // });
   });
-  const child = document.querySelectorAll(".secondary-menu");
-  // console.log(child);
-  child.forEach((item) => {
-    secondaryMenuHeight.push({ item, itemHeight: item.clientHeight });
-  });
-  // console.log(secondaryMenuHeight);
 }
 
 function goNext(prevMenu, currentMenu, el) {
   const goNextMenuButton = el.querySelector(".menu__item-link");
   const nestingDepth = currentMenu.dataset.depth - 1 || 0;
   goNextMenuButton.addEventListener("click", () => {
+    // currentMenu.style.height = `${currentHeight}px`;
+    // currentMenu.style.overflowY = "scroll";
+
     closeNeighborsMenu(nestingDepth);
     currentMenu.classList.remove("is-hidden");
     currentMenu.classList.add("active");
@@ -75,34 +83,6 @@ function goNext(prevMenu, currentMenu, el) {
     if (window.innerWidth < tabletWidth) {
       prevMenu.classList.add("is-hidden");
       prevMenu.classList.remove("active");
-    }
-
-    if (window.innerWidth >= tabletWidth) {
-      const allVisibleSecondaryMenu = document.querySelectorAll(
-        ".secondary-menu.active"
-      );
-      console.log(allVisibleSecondaryMenu);
-
-      const prePrevvMenuClone = secondaryMenuHeight.find(
-        (i) => i.item === allVisibleSecondaryMenu[0]
-      );
-      const prevMenuClone = secondaryMenuHeight.find(
-        (i) => i.item === prevMenu
-      );
-      const currentMenuClone = secondaryMenuHeight.find(
-        (i) => i.item === currentMenu
-      );
-
-      const maxHeight = Math.max(
-        currentMenuClone.itemHeight,
-        prevMenuClone?.itemHeight,
-        prePrevvMenuClone?.itemHeight
-      );
-      allVisibleSecondaryMenu.forEach(
-        (i) => (i.style.height = `${maxHeight}px`)
-      );
-      // prevMenu.style.height = `${maxHeight}px`;
-      // currentMenu.style.height = `${maxHeight}px`;
     }
 
     if (window.innerWidth >= tabletWidth && window.innerWidth < desctopWidth) {
@@ -172,17 +152,32 @@ function closeNeighborsMenu(level) {
   }
 }
 
-// if (window.innerWidth > 767) {
-//   const realHeight = {
-//     firstMenuHeight: firstMenu?.clientHeight || 0,
-//     prevMenuHeight: prevMenu.clientHeight,
-//     currentmenuHeight: currentMenu.clientHeight,
-//   };
-//   console.log(realHeight);
-//   const currentMaxHeight =
-//     realHeight.currentmenuHeight > realHeight.prevMenuHeight
-//       ? realHeight.currentmenuHeight
-//       : realHeight.prevMenuHeight;
-//   currentMenu.style.height = `${currentMaxHeight}px`;
-//   prevMenu.style.height = `${currentMaxHeight}px`;
+// if (window.innerWidth >= tabletWidth) {
+//   const allVisibleSecondaryMenu = document.querySelectorAll(
+//     ".secondary-menu.active"
+//   );
+//   const prePrevvMenuClone = secondaryMenuHeight.find(
+//     (i) => i.item === allVisibleSecondaryMenu[0]
+//   );
+//   const prevMenuClone = secondaryMenuHeight.find(
+//     (i) => i.item === prevMenu
+//   );
+//   const currentMenuClone = secondaryMenuHeight.find(
+//     (i) => i.item === currentMenu
+//   );
+//   const maxHeight = Math.max(
+//     currentMenuClone.itemHeight,
+//     prevMenuClone?.itemHeight,
+//     prePrevvMenuClone?.itemHeight
+//   );
+//   allVisibleSecondaryMenu.forEach(
+//     (i) => (i.style.height = `${maxHeight}px`)
+//   );
 // }
+
+// const child = document.querySelectorAll(".secondary-menu");
+// // console.log(child);
+// child.forEach((item) => {
+//   secondaryMenuHeight.push({ item, itemHeight: item.clientHeight });
+// });
+// // console.log(secondaryMenuHeight);

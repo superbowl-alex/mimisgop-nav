@@ -27,6 +27,43 @@ const catalog = [
                 links: "",
               },
               {
+                title: "toys",
+                url: "/src/components/toys.html",
+                links: "",
+              },
+              {
+                title: "toys",
+                url: "/src/components/toys.html",
+                links: "",
+              },
+              {
+                title: "toys",
+                url: "/src/components/toys.html",
+                links: "",
+              },
+
+              {
+                title: "tops",
+                url: "/src/components/tops.html",
+                links: "",
+              },
+              {
+                title: "outdoor",
+                url: "/src/components/outdoor.html",
+                links: "",
+              },
+              {
+                title: "toys",
+                url: "/src/components/toys.html",
+                links: "",
+              },
+              {
+                title: "tops",
+                url: "/src/components/tops.html",
+                links: "",
+              },
+
+              {
                 title: "outdoor",
                 url: "/src/components/outdoor.html",
                 links: "",
@@ -86,31 +123,31 @@ const catalog = [
           },
         ],
       },
-      {
-        title: "toys",
-        url: "/src/components/toys.html",
-        links: "",
-      },
-      {
-        title: "tops",
-        url: "/src/components/tops.html",
-        links: "",
-      },
-      {
-        title: "outdoor",
-        url: "/src/components/outdoor.html",
-        links: "",
-      },
-      {
-        title: "toys",
-        url: "/src/components/toys.html",
-        links: "",
-      },
-      {
-        title: "tops",
-        url: "/src/components/tops.html",
-        links: "",
-      },
+      // {
+      //   title: "toys",
+      //   url: "/src/components/toys.html",
+      //   links: "",
+      // },
+      // {
+      //   title: "tops",
+      //   url: "/src/components/tops.html",
+      //   links: "",
+      // },
+      // {
+      //   title: "outdoor",
+      //   url: "/src/components/outdoor.html",
+      //   links: "",
+      // },
+      // {
+      //   title: "toys",
+      //   url: "/src/components/toys.html",
+      //   links: "",
+      // },
+      // {
+      //   title: "tops",
+      //   url: "/src/components/tops.html",
+      //   links: "",
+      // },
       {
         title: "outdoor",
         url: "/src/components/outdoor.html",

@@ -75,21 +75,22 @@ button {
 .menu-wrap {
   display: flex;
   position: relative;
+  height: 100vh;
 }
 
 .main-menu {
-  flex-grow: 1;
+  height: 100%;
 }
 
 .secondary-menu {
-  flex-grow: 1;
-
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   background-color: #ffffff;
   width: 296px;
   border-radius: 0 15px 15px 0;
+  border: 1px tomato solid;
 }
 
 .secondary-menu > .menu__item {
