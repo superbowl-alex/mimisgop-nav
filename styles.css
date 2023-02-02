@@ -39,7 +39,6 @@ button {
 /* -------------------обнуление----------- */
 .nav-wrap {
   width: 360px;
-  position: relative;
   padding-top: 27px;
 }
 
@@ -74,12 +73,17 @@ button {
 }
 
 .menu-wrap {
+  display: flex;
+  position: relative;
 }
 
 .main-menu {
+  flex-grow: 1;
 }
 
 .secondary-menu {
+  flex-grow: 1;
+
   position: absolute;
   top: 0;
   left: 0;

@@ -31,6 +31,16 @@ const catalog = [
                 url: "/src/components/outdoor.html",
                 links: "",
               },
+              {
+                title: "9-12years",
+                url: "/src/components/912.html",
+                links: "",
+              },
+              {
+                title: "about",
+                url: "/src/components/about.html",
+                links: "",
+              },
             ],
           },
           {
@@ -52,6 +62,26 @@ const catalog = [
           {
             title: "outdoor",
             url: "/src/components/outdoor.html",
+            links: "",
+          },
+          {
+            title: "age",
+            url: "/src/components/age.html",
+            links: "",
+          },
+          {
+            title: "blog",
+            url: "/src/components/blog.html",
+            links: "",
+          },
+          {
+            title: "bottoms",
+            url: "/src/components/bottoms.html",
+            links: "",
+          },
+          {
+            title: "contacts",
+            url: "/src/components/contacts.html",
             links: "",
           },
         ],
