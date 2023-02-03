@@ -1,21 +1,23 @@
 import { markupItems } from "./markupItem.js";
 const mainMenu = document.querySelector(".main-menu");
+const mainMenuWrap = document.querySelector(".main-menu-wrap");
+
 const mobileWidth = 360;
 const tabletWidth = 768;
 const desctopWidth = 1440;
-// const secondaryMenuHeight = [];
 const currentHeight = document.documentElement.clientHeight;
 
 export function render(arr) {
   const mainMenuMarkup = arr.map((item) => markupItems(item)).join("");
   mainMenu.insertAdjacentHTML("beforeend", mainMenuMarkup);
   const mainMenuItem = mainMenu.querySelectorAll(".menu__item");
-
   mainMenuItem.forEach((item) => {
     if (item.hasAttribute("data-inner")) {
       const array = JSON.parse(item.dataset.inner);
       const secondaryMenu = item.querySelector(".secondary-menu");
+      const secondaryMenuWrap = item.querySelector(".secondary-menu-wrap");
       secondaryMenu.dataset.depth = 1;
+      secondaryMenuWrap.dataset.depth = 1;
       goNext(mainMenu, secondaryMenu, item);
       goBack(secondaryMenu, item);
       const secondaryMenuMarkup = array
@@ -28,7 +30,9 @@ export function render(arr) {
         if (item.hasAttribute("data-inner")) {
           const array = JSON.parse(item.dataset.inner);
           const subMenu = item.querySelector(".secondary-menu");
+          const subMenuWrap = item.querySelector(".secondary-menu-wrap");
           subMenu.dataset.depth = 2;
+          subMenuWrap.dataset.depth = 2;
           goNext(secondaryMenu, subMenu, item);
           goBack(subMenu, item);
           const subMenuMarkup = array.map((item) => markupItems(item)).join("");
@@ -39,7 +43,9 @@ export function render(arr) {
             if (item.hasAttribute("data-inner")) {
               const array = JSON.parse(item.dataset.inner);
               const depMenu = item.querySelector(".secondary-menu");
+              const depMenuWrap = item.querySelector(".secondary-menu-wrap");
               depMenu.dataset.depth = 3;
+              depMenuWrap.dataset.depth = 3;
               goNext(subMenu, depMenu, item);
               goBack(depMenu, item);
               const depMenuMarkup = array
@@ -51,16 +57,6 @@ export function render(arr) {
         }
       });
     }
-    // mainMenu.style.height = `${currentHeight}px`;
-
-    // const menu = document.querySelectorAll(".main-menu, .secondary-menu");
-
-    // console.log(currentHeight);
-    // console.log(menu);
-    // menu.forEach((i) => {
-    //   i.style.height = `${currentHeight}px`;
-    //   // i.style.overflowY = "scroll";
-    // });
   });
 }
 
@@ -68,32 +64,30 @@ function goNext(prevMenu, currentMenu, el) {
   const goNextMenuButton = el.querySelector(".menu__item-link");
   const nestingDepth = currentMenu.dataset.depth - 1 || 0;
   goNextMenuButton.addEventListener("click", () => {
-    // currentMenu.style.height = `${currentHeight}px`;
-    // currentMenu.style.overflowY = "scroll";
-
+    const currentSecondaryMenuWrap = el.querySelector(".secondary-menu-wrap");
     closeNeighborsMenu(nestingDepth);
-    currentMenu.classList.remove("is-hidden");
-    currentMenu.classList.add("active");
+    currentSecondaryMenuWrap.classList.remove("is-hidden");
+    currentSecondaryMenuWrap.classList.add("active");
 
-    // console.log("prevMenuClone", prevMenuClone);
-    // console.log("currentMenuClone", currentMenuClone);
-    // console.log("prevMenu", prevMenu);
-    // console.log("currentMenu", currentMenu);
+    const prevMenuWrap = prevMenu.closest(
+      ".secondary-menu-wrap, .main-menu-wrap"
+    );
 
     if (window.innerWidth < tabletWidth) {
-      prevMenu.classList.add("is-hidden");
-      prevMenu.classList.remove("active");
+      prevMenuWrap.classList.add("is-hidden");
+      prevMenuWrap.classList.remove("active");
     }
 
     if (window.innerWidth >= tabletWidth && window.innerWidth < desctopWidth) {
-      mainMenu.classList.add("is-hidden");
-      mainMenu.classList.remove("active");
-      currentMenu.style.left = prevMenu === mainMenu ? "0" : "296px";
+      mainMenuWrap.classList.add("is-hidden");
+      mainMenuWrap.classList.remove("active");
+      currentSecondaryMenuWrap.style.left =
+        prevMenuWrap === mainMenuWrap ? "0" : "296px";
     }
 
     if (window.innerWidth >= desctopWidth) {
-      currentMenu.style.left = nestingDepth ? "296px" : "0px";
-      currentMenu.style.top = nestingDepth ? "0px" : "64px";
+      currentSecondaryMenuWrap.style.left = nestingDepth ? "296px" : "0px";
+      currentSecondaryMenuWrap.style.top = nestingDepth ? "0px" : "80px";
     }
   });
 }
@@ -106,46 +100,56 @@ function goBack(currentmenu, el) {
   goBackButton.dataset.depth = currentmenu.dataset.depth;
   goBackButton.addEventListener("click", (e) => {
     e.preventDefault();
-    const secondaryMenu = document.querySelectorAll(".secondary-menu");
-    secondaryMenu.forEach((item) => {
+    const secondaryMenuWrap = document.querySelectorAll(".secondary-menu-wrap");
+    secondaryMenuWrap.forEach((item) => {
       item.classList.add("is-hidden");
       item.classList.remove("active");
     });
     const nestingDepth = e.target.dataset.depth;
+
+    const currentMenuWrap = el.querySelector(".secondary-menu-wrap");
+
     const previousMenu =
       document.querySelector(
         `.secondary-menu[data-depth="${nestingDepth - 1}"]`
       ) || mainMenu;
+    const prevMenuWrap = previousMenu.closest(
+      ".secondary-menu-wrap, .main-menu-wrap"
+    );
 
     const prePreviousMenu =
       document.querySelector(
         `.secondary-menu[data-depth="${nestingDepth - 2}"]`
       ) || mainMenu;
+    const prePrevMenuWrap = prePreviousMenu.closest(
+      ".secondary-menu-wrap, .main-menu-wrap"
+    );
 
-    currentmenu.classList.add("is-hidden");
-    currentmenu.classList.remove("active");
-    previousMenu.classList.remove("is-hidden");
-    previousMenu.classList.add("active");
+    currentMenuWrap.classList.add("is-hidden");
+    currentMenuWrap.classList.remove("active");
+    prevMenuWrap.classList.remove("is-hidden");
+    prevMenuWrap.classList.add("active");
 
     if (window.innerWidth >= tabletWidth) {
-      previousMenu.classList.remove("is-hidden");
-      previousMenu.classList.add("active");
-      prePreviousMenu.classList.remove("is-hidden");
-      prePreviousMenu.classList.add("active");
+      prevMenuWrap.classList.remove("is-hidden");
+      prevMenuWrap.classList.add("active");
+      prePrevMenuWrap.classList.remove("is-hidden");
+      prePrevMenuWrap.classList.add("active");
     }
   });
 }
 
 function closeNeighborsMenu(level) {
-  const currentSecondaryMenu = document.querySelectorAll(
-    `.secondary-menu[data-depth="${
+  const currentSecondaryMenuWrap = document.querySelectorAll(
+    `.secondary-menu-wrap[data-depth="${
       level + 1
-    }"].active, .secondary-menu[data-depth="${
+    }"].active, .secondary-menu-wrap[data-depth="${
       level + 2
-    }"].active, .secondary-menu[data-depth="${level + 3}"].active`
+    }"].active, .secondary-menu-wrap[data-depth="${level + 3}"].active`
   );
-  if (currentSecondaryMenu.length > 0) {
-    currentSecondaryMenu.forEach((item) => {
+
+  if (currentSecondaryMenuWrap.length > 0) {
+    currentSecondaryMenuWrap.forEach((item) => {
       item.classList.add("is-hidden");
       item.classList.remove("active");
     });
