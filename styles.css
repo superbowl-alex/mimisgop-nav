@@ -175,7 +175,7 @@ button {
   .main-menu {
     display: flex;
     height: 100%;
-    /* overflow: hidden; */
+    overflow: visible;
   }
 
   .main-menu > .menu__item:not(:first-child) {
