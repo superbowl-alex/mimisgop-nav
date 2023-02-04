@@ -1,3 +1,4 @@
+import { makeHidden, makeVisible } from "./index.js";
 import { markupItems } from "./markupItem.js";
 const mainMenu = document.querySelector(".main-menu");
 const mainMenuWrap = document.querySelector(".main-menu-wrap");
@@ -61,7 +62,6 @@ export function render(arr) {
 
 function goNext(prevMenu, currentMenu, el) {
   const goNextMenuButton = el.querySelector(".menu__item-link");
-
   const nestingDepth = currentMenu.dataset.depth - 1 || 0;
   goNextMenuButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -70,30 +70,26 @@ function goNext(prevMenu, currentMenu, el) {
     );
     if (allActiveSecondaryMenu.length > 0) {
       allActiveSecondaryMenu.forEach((item) => {
-        item.classList.add("is-hidden");
-        item.classList.remove("active");
+        makeHidden(item);
       });
     } else {
       const currentSecondaryMenuWrap = el.querySelector(".secondary-menu-wrap");
       closeNeighborsMenu(nestingDepth);
-      currentSecondaryMenuWrap.classList.remove("is-hidden");
-      currentSecondaryMenuWrap.classList.add("active");
+      makeVisible(currentSecondaryMenuWrap);
 
       const prevMenuWrap = prevMenu.closest(
         ".secondary-menu-wrap, .main-menu-wrap"
       );
 
       if (window.innerWidth < tabletWidth) {
-        prevMenuWrap.classList.add("is-hidden");
-        prevMenuWrap.classList.remove("active");
+        makeHidden(prevMenuWrap);
       }
 
       if (
         window.innerWidth >= tabletWidth &&
         window.innerWidth < desctopWidth
       ) {
-        mainMenuWrap.classList.add("is-hidden");
-        mainMenuWrap.classList.remove("active");
+        makeHidden(mainMenuWrap);
         currentSecondaryMenuWrap.style.left =
           prevMenuWrap === mainMenuWrap ? "0" : "296px";
       }
@@ -116,8 +112,7 @@ function goBack(currentmenu, el) {
     e.preventDefault();
     const secondaryMenuWrap = document.querySelectorAll(".secondary-menu-wrap");
     secondaryMenuWrap.forEach((item) => {
-      item.classList.add("is-hidden");
-      item.classList.remove("active");
+      makeHidden(item);
     });
     const nestingDepth = e.target.dataset.depth;
 
@@ -139,16 +134,12 @@ function goBack(currentmenu, el) {
       ".secondary-menu-wrap, .main-menu-wrap"
     );
 
-    currentMenuWrap.classList.add("is-hidden");
-    currentMenuWrap.classList.remove("active");
-    prevMenuWrap.classList.remove("is-hidden");
-    prevMenuWrap.classList.add("active");
+    makeHidden(currentMenuWrap);
+    makeVisible(prevMenuWrap);
 
     if (window.innerWidth >= tabletWidth) {
-      prevMenuWrap.classList.remove("is-hidden");
-      prevMenuWrap.classList.add("active");
-      prePrevMenuWrap.classList.remove("is-hidden");
-      prePrevMenuWrap.classList.add("active");
+      makeVisible(prevMenuWrap);
+      makeVisible(prePrevMenuWrap);
     }
   });
 }
@@ -164,8 +155,7 @@ function closeNeighborsMenu(level) {
 
   if (currentSecondaryMenuWrap.length > 0) {
     currentSecondaryMenuWrap.forEach((item) => {
-      item.classList.add("is-hidden");
-      item.classList.remove("active");
+      makeHidden(item);
     });
   }
 }

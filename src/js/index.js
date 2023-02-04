@@ -422,30 +422,34 @@ const catalog = [
   },
 ];
 
-render(catalog);
-if (window.innerWidth > 1439) {
-  mainMenuWrap.classList.remove("is-hidden");
-  mainMenuWrap.classList.add("active");
-}
-
-const openMenu = () => {
-  openMenuBtn.classList.add("is-hidden");
-  closeMenuBtn.classList.remove("is-hidden");
-  mainMenuWrap.classList.remove("is-hidden");
-  mainMenuWrap.classList.add("active");
-};
-
-const closeMenu = () => {
-  openMenuBtn.classList.remove("is-hidden");
-  closeMenuBtn.classList.add("is-hidden");
-  mainMenuWrap.classList.add("is-hidden");
-  mainMenuWrap.classList.remove("active");
-  const secondaryMenuWrap = document.querySelectorAll(".secondary-menu-wrap");
-  secondaryMenuWrap.forEach((item) => {
-    item.classList.add("is-hidden");
-    item.classList.remove("active");
-  });
-};
-
 openMenuBtn.addEventListener("click", openMenu);
 closeMenuBtn.addEventListener("click", closeMenu);
+
+render(catalog);
+if (window.innerWidth > 1439) {
+  makeVisible(mainMenuWrap);
+}
+
+function openMenu() {
+  openMenuBtn.classList.add("is-hidden");
+  closeMenuBtn.classList.remove("is-hidden");
+  makeVisible(mainMenuWrap);
+}
+
+function closeMenu() {
+  openMenuBtn.classList.remove("is-hidden");
+  closeMenuBtn.classList.add("is-hidden");
+  makeHidden(mainMenuWrap);
+  const secondaryMenuWrap = document.querySelectorAll(".secondary-menu-wrap");
+  secondaryMenuWrap.forEach((item) => makeHidden(item));
+}
+
+export function makeVisible(el) {
+  el.classList.remove("is-hidden");
+  el.classList.add("active");
+}
+
+export function makeHidden(el) {
+  el.classList.remove("active");
+  el.classList.add("is-hidden");
+}
