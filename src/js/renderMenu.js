@@ -5,7 +5,6 @@ const mainMenuWrap = document.querySelector(".main-menu-wrap");
 const mobileWidth = 360;
 const tabletWidth = 768;
 const desctopWidth = 1440;
-const currentHeight = document.documentElement.clientHeight;
 
 export function render(arr) {
   const mainMenuMarkup = arr.map((item) => markupItems(item)).join("");
@@ -62,32 +61,47 @@ export function render(arr) {
 
 function goNext(prevMenu, currentMenu, el) {
   const goNextMenuButton = el.querySelector(".menu__item-link");
+
   const nestingDepth = currentMenu.dataset.depth - 1 || 0;
-  goNextMenuButton.addEventListener("click", () => {
-    const currentSecondaryMenuWrap = el.querySelector(".secondary-menu-wrap");
-    closeNeighborsMenu(nestingDepth);
-    currentSecondaryMenuWrap.classList.remove("is-hidden");
-    currentSecondaryMenuWrap.classList.add("active");
-
-    const prevMenuWrap = prevMenu.closest(
-      ".secondary-menu-wrap, .main-menu-wrap"
+  goNextMenuButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const allActiveSecondaryMenu = el.querySelectorAll(
+      ".secondary-menu-wrap.active"
     );
+    if (allActiveSecondaryMenu.length > 0) {
+      allActiveSecondaryMenu.forEach((item) => {
+        item.classList.add("is-hidden");
+        item.classList.remove("active");
+      });
+    } else {
+      const currentSecondaryMenuWrap = el.querySelector(".secondary-menu-wrap");
+      closeNeighborsMenu(nestingDepth);
+      currentSecondaryMenuWrap.classList.remove("is-hidden");
+      currentSecondaryMenuWrap.classList.add("active");
 
-    if (window.innerWidth < tabletWidth) {
-      prevMenuWrap.classList.add("is-hidden");
-      prevMenuWrap.classList.remove("active");
-    }
+      const prevMenuWrap = prevMenu.closest(
+        ".secondary-menu-wrap, .main-menu-wrap"
+      );
 
-    if (window.innerWidth >= tabletWidth && window.innerWidth < desctopWidth) {
-      mainMenuWrap.classList.add("is-hidden");
-      mainMenuWrap.classList.remove("active");
-      currentSecondaryMenuWrap.style.left =
-        prevMenuWrap === mainMenuWrap ? "0" : "296px";
-    }
+      if (window.innerWidth < tabletWidth) {
+        prevMenuWrap.classList.add("is-hidden");
+        prevMenuWrap.classList.remove("active");
+      }
 
-    if (window.innerWidth >= desctopWidth) {
-      currentSecondaryMenuWrap.style.left = nestingDepth ? "296px" : "0px";
-      currentSecondaryMenuWrap.style.top = nestingDepth ? "0px" : "80px";
+      if (
+        window.innerWidth >= tabletWidth &&
+        window.innerWidth < desctopWidth
+      ) {
+        mainMenuWrap.classList.add("is-hidden");
+        mainMenuWrap.classList.remove("active");
+        currentSecondaryMenuWrap.style.left =
+          prevMenuWrap === mainMenuWrap ? "0" : "296px";
+      }
+
+      if (window.innerWidth >= desctopWidth) {
+        currentSecondaryMenuWrap.style.left = nestingDepth ? "296px" : "0px";
+        currentSecondaryMenuWrap.style.top = nestingDepth ? "0px" : "80px";
+      }
     }
   });
 }
@@ -155,6 +169,8 @@ function closeNeighborsMenu(level) {
     });
   }
 }
+
+// const currentHeight = document.documentElement.clientHeight;
 
 // if (window.innerWidth >= tabletWidth) {
 //   const allVisibleSecondaryMenu = document.querySelectorAll(
