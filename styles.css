@@ -83,8 +83,17 @@ button {
   position: absolute;
   top: 0;
   left: 0;
+  width: 25px;
+  height: 25px;
+  border: 1px black solid;
+  border-radius: 4px;
 }
-
+.menu-open__icon,
+.menu-close__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .menu {
 }
 .secondary-menu.active {

@@ -1,7 +1,9 @@
 import { render } from "./renderMenu.js";
 
-const openMenuBtn = document.querySelector(".menu-open");
-const closeMenuBtn = document.querySelector(".menu-close");
+const menuButton = document.querySelector(".menu-btn");
+const openMenuBtnIcon = document.querySelector(".menu-open__icon");
+const closeMenuBtnIcon = document.querySelector(".menu-close__icon");
+
 const mainMenu = document.querySelector(".main-menu");
 const mainMenuWrap = document.querySelector(".main-menu-wrap");
 
@@ -422,8 +424,17 @@ const catalog = [
   },
 ];
 
-openMenuBtn.addEventListener("click", openMenu);
-closeMenuBtn.addEventListener("click", closeMenu);
+menuButton.addEventListener("click", toggleButton);
+
+function toggleButton() {
+  if (menuButton.classList.contains("visible")) {
+    menuButton.classList.toggle("visible");
+    closeMenu();
+  } else {
+    menuButton.classList.toggle("visible");
+    openMenu();
+  }
+}
 
 render(catalog);
 if (window.innerWidth > 1439) {
@@ -431,14 +442,14 @@ if (window.innerWidth > 1439) {
 }
 
 function openMenu() {
-  openMenuBtn.classList.add("is-hidden");
-  closeMenuBtn.classList.remove("is-hidden");
+  openMenuBtnIcon.classList.add("is-hidden");
+  closeMenuBtnIcon.classList.remove("is-hidden");
   makeVisible(mainMenuWrap);
 }
 
 function closeMenu() {
-  openMenuBtn.classList.remove("is-hidden");
-  closeMenuBtn.classList.add("is-hidden");
+  openMenuBtnIcon.classList.remove("is-hidden");
+  closeMenuBtnIcon.classList.add("is-hidden");
   makeHidden(mainMenuWrap);
   const secondaryMenuWrap = document.querySelectorAll(".secondary-menu-wrap");
   secondaryMenuWrap.forEach((item) => makeHidden(item));
