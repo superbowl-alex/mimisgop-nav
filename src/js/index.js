@@ -424,7 +424,19 @@ const catalog = [
   },
 ];
 
-menuButton.addEventListener("click", toggleButton);
+const MOBILEWIDTH = 360;
+const TABLETWIDTH = 768;
+const DESCTOPWIDTH = 1440;
+
+if (menuButton) {
+  menuButton.addEventListener("click", () => {
+    if (!openMenuBtnIcon) return;
+    if (!closeMenuBtnIcon) return;
+    if (!mainMenu) return;
+    if (!mainMenuWrap) return;
+    toggleButton();
+  });
+}
 
 function toggleButton() {
   if (menuButton.classList.contains("visible")) {
@@ -436,8 +448,9 @@ function toggleButton() {
   }
 }
 
-render(catalog);
-if (window.innerWidth > 1439) {
+if (mainMenu && mainMenuWrap) render(catalog);
+
+if (window.innerWidth >= DESCTOPWIDTH) {
   makeVisible(mainMenuWrap);
 }
 

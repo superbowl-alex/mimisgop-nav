@@ -3,61 +3,42 @@ import { markupItems } from "./markupItem.js";
 const mainMenu = document.querySelector(".main-menu");
 const mainMenuWrap = document.querySelector(".main-menu-wrap");
 
-const mobileWidth = 360;
-const tabletWidth = 768;
-const desctopWidth = 1440;
+const MOBILEWIDTH = 360;
+const TABLETWIDTH = 768;
+const DESCTOPWIDTH = 1440;
 
 export function render(arr) {
   const mainMenuMarkup = arr.map((item) => markupItems(item)).join("");
   mainMenu.insertAdjacentHTML("beforeend", mainMenuMarkup);
   const mainMenuItem = mainMenu.querySelectorAll(".menu__item");
   mainMenuItem.forEach((item) => {
-    if (item.hasAttribute("data-inner")) {
-      const array = JSON.parse(item.dataset.inner);
-      const secondaryMenu = item.querySelector(".secondary-menu");
-      const secondaryMenuWrap = item.querySelector(".secondary-menu-wrap");
-      secondaryMenu.dataset.depth = 1;
-      secondaryMenuWrap.dataset.depth = 1;
-      goNext(mainMenu, secondaryMenu, item);
-      goBack(secondaryMenu, item);
-      const secondaryMenuMarkup = array
-        .map((item) => markupItems(item))
-        .join("");
-      secondaryMenu.insertAdjacentHTML("beforeend", secondaryMenuMarkup);
-      const secondaryMenuItem = secondaryMenu.querySelectorAll(".menu__item");
-
-      secondaryMenuItem.forEach((item) => {
-        if (item.hasAttribute("data-inner")) {
-          const array = JSON.parse(item.dataset.inner);
-          const subMenu = item.querySelector(".secondary-menu");
-          const subMenuWrap = item.querySelector(".secondary-menu-wrap");
-          subMenu.dataset.depth = 2;
-          subMenuWrap.dataset.depth = 2;
-          goNext(secondaryMenu, subMenu, item);
-          goBack(subMenu, item);
-          const subMenuMarkup = array.map((item) => markupItems(item)).join("");
-          subMenu.insertAdjacentHTML("beforeend", subMenuMarkup);
-          const subMenuItem = subMenu.querySelectorAll(".menu__item");
-
-          subMenuItem.forEach((item) => {
-            if (item.hasAttribute("data-inner")) {
-              const array = JSON.parse(item.dataset.inner);
-              const depMenu = item.querySelector(".secondary-menu");
-              const depMenuWrap = item.querySelector(".secondary-menu-wrap");
-              depMenu.dataset.depth = 3;
-              depMenuWrap.dataset.depth = 3;
-              goNext(subMenu, depMenu, item);
-              goBack(depMenu, item);
-              const depMenuMarkup = array
-                .map((item) => markupItems(item))
-                .join("");
-              depMenu.insertAdjacentHTML("beforeend", depMenuMarkup);
-            }
-          });
-        }
+    const innerMenuStageOne = renderInnerMenu(mainMenu, 1, item);
+    const innerMenuStageOneItem =
+      innerMenuStageOne?.querySelectorAll(".menu__item");
+    innerMenuStageOneItem?.forEach((item) => {
+      const innerMenuStageTwo = renderInnerMenu(innerMenuStageOne, 2, item);
+      const innerMenuStageTwoItem =
+        innerMenuStageTwo?.querySelectorAll(".menu__item");
+      innerMenuStageTwoItem?.forEach((item) => {
+        renderInnerMenu(innerMenuStageTwo, 3, item);
       });
-    }
+    });
   });
+}
+
+function renderInnerMenu(prevMenu, stage, el) {
+  if (el.hasAttribute("data-inner")) {
+    const array = JSON.parse(el.dataset.inner);
+    const currentMenu = el.querySelector(".secondary-menu");
+    const currentMenuWrap = el.querySelector(".secondary-menu-wrap");
+    currentMenu.dataset.depth = stage;
+    currentMenuWrap.dataset.depth = stage;
+    goNext(prevMenu, currentMenu, el);
+    goBack(currentMenu, el);
+    const currentMenuMarkup = array.map((item) => markupItems(item)).join("");
+    currentMenu.insertAdjacentHTML("beforeend", currentMenuMarkup);
+    return currentMenu;
+  }
 }
 
 function goNext(prevMenu, currentMenu, el) {
@@ -81,20 +62,20 @@ function goNext(prevMenu, currentMenu, el) {
         ".secondary-menu-wrap, .main-menu-wrap"
       );
 
-      if (window.innerWidth < tabletWidth) {
+      if (window.innerWidth < TABLETWIDTH) {
         makeHidden(prevMenuWrap);
       }
 
       if (
-        window.innerWidth >= tabletWidth &&
-        window.innerWidth < desctopWidth
+        window.innerWidth >= TABLETWIDTH &&
+        window.innerWidth < DESCTOPWIDTH
       ) {
         makeHidden(mainMenuWrap);
         currentSecondaryMenuWrap.style.left =
           prevMenuWrap === mainMenuWrap ? "0" : "296px";
       }
 
-      if (window.innerWidth >= desctopWidth) {
+      if (window.innerWidth >= DESCTOPWIDTH) {
         currentSecondaryMenuWrap.style.left = nestingDepth ? "296px" : "0px";
         currentSecondaryMenuWrap.style.top = nestingDepth ? "0px" : "80px";
       }
@@ -104,7 +85,7 @@ function goNext(prevMenu, currentMenu, el) {
 
 function goBack(currentmenu, el) {
   const goBackButton = el.querySelector(".back-button");
-  if (window.innerWidth >= desctopWidth) {
+  if (window.innerWidth >= DESCTOPWIDTH) {
     goBackButton.style.display = "none";
   }
   goBackButton.dataset.depth = currentmenu.dataset.depth;
@@ -137,7 +118,7 @@ function goBack(currentmenu, el) {
     makeHidden(currentMenuWrap);
     makeVisible(prevMenuWrap);
 
-    if (window.innerWidth >= tabletWidth) {
+    if (window.innerWidth >= TABLETWIDTH) {
       makeVisible(prevMenuWrap);
       makeVisible(prePrevMenuWrap);
     }
@@ -160,9 +141,59 @@ function closeNeighborsMenu(level) {
   }
 }
 
+// const mainMenuItem = mainMenu.querySelectorAll(".menu__item");
+// mainMenuItem.forEach((item) => {
+//   if (item.hasAttribute("data-inner")) {
+//     const array = JSON.parse(item.dataset.inner);
+//     const secondaryMenu = item.querySelector(".secondary-menu");
+//     const secondaryMenuWrap = item.querySelector(".secondary-menu-wrap");
+//     secondaryMenu.dataset.depth = 1;
+//     secondaryMenuWrap.dataset.depth = 1;
+//     goNext(mainMenu, secondaryMenu, item);
+//     goBack(secondaryMenu, item);
+//     const secondaryMenuMarkup = array
+//       .map((item) => markupItems(item))
+//       .join("");
+//     secondaryMenu.insertAdjacentHTML("beforeend", secondaryMenuMarkup);
+//     const secondaryMenuItem = secondaryMenu.querySelectorAll(".menu__item");
+
+//     secondaryMenuItem.forEach((item) => {
+//       if (item.hasAttribute("data-inner")) {
+//         const array = JSON.parse(item.dataset.inner);
+//         const subMenu = item.querySelector(".secondary-menu");
+//         const subMenuWrap = item.querySelector(".secondary-menu-wrap");
+//         subMenu.dataset.depth = 2;
+//         subMenuWrap.dataset.depth = 2;
+//         goNext(secondaryMenu, subMenu, item);
+//         goBack(subMenu, item);
+//         const subMenuMarkup = array.map((item) => markupItems(item)).join("");
+//         subMenu.insertAdjacentHTML("beforeend", subMenuMarkup);
+//         const subMenuItem = subMenu.querySelectorAll(".menu__item");
+
+//         subMenuItem.forEach((item) => {
+//           if (item.hasAttribute("data-inner")) {
+//             const array = JSON.parse(item.dataset.inner);
+//             const depMenu = item.querySelector(".secondary-menu");
+//             const depMenuWrap = item.querySelector(".secondary-menu-wrap");
+//             depMenu.dataset.depth = 3;
+//             depMenuWrap.dataset.depth = 3;
+//             goNext(subMenu, depMenu, item);
+//             goBack(depMenu, item);
+//             const depMenuMarkup = array
+//               .map((item) => markupItems(item))
+//               .join("");
+//             depMenu.insertAdjacentHTML("beforeend", depMenuMarkup);
+//           }
+//         });
+//       }
+//     });
+//   }
+// });
+// }
+
 // const currentHeight = document.documentElement.clientHeight;
 
-// if (window.innerWidth >= tabletWidth) {
+// if (window.innerWidth >= TABLETWIDTH) {
 //   const allVisibleSecondaryMenu = document.querySelectorAll(
 //     ".secondary-menu.active"
 //   );
